@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+
+double calculateEnergyCharge(double units){ 
+    if(units<=100){
+        return 15*units;
+    }else if(units<=200){
+        return (15*100)+(units-100)*20;
+    }else {
+        return (15*100)+(20*100)+(units-200)*30;
+    }
+}
+double calculateFixedCharge(int customerType){
+    switch(customerType){
+        case 1:
+            return 500;
+        case 2:
+            return 1000;
+        default:
+            return 0;
+    }
+}
+double applyDiscount(double total, char discountChoice){
+    if (discountChoice=='y'||discountChoice=='Y'){
+       return total=total - (total/100)*5;
+    } else{
+       return  total;
+    }
+}
+void printBill(double energyCharge, double fixedCharge,
+               double finalTotal, char discountChoice){
+    cout <<"\n====Electricity Bill===="<<endl;
+    cout <<"Total Energy Charge: " << energyCharge;
+    cout <<"\nFixed Charge: "<< fixedCharge<<endl;
+    cout <<"Your discount status: " << discountChoice;
+    cout <<"\nFinal total bill: " << finalTotal;
+    cout <<"\n========================"<<endl;
+}
+
+int main(){
+    int customertype, electricityunits;
+    char discountChoice;
+
+    cout << "Enter your customer type(1 for residential or 2 for commercial):\n";
+    cin >> customertype;
+    cout << "Enter your electricity units: \n";
+    cin >> electricityunits;
+    cout << "Do you want a discount or not?(Y/N):\n";
+    cin >> discountChoice;
+
+    double unitscharge = calculateEnergyCharge(electricityunits);
+    double fixedcharge = calculateFixedCharge(customertype);
+    double total = unitscharge+fixedcharge;
+
+    double finaltotal = applyDiscount( total, discountChoice);
+
+    printBill(unitscharge, fixedcharge, finaltotal, discountChoice);
+
+    return 0;
+}

@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+
+double calculateDataCharge(double dataGB){
+    if (dataGB<=2){
+        return (100/2)*dataGB;
+    } else {
+        return 100+(dataGB-2)*75;
+    }
+}
+double calculatePlanCharge(int planType){
+    switch(planType){
+        case 1:
+        return 200;
+        case 2:
+        return 400;
+        case 3:
+        return 700;
+        default:
+        return 0;
+    }
+        
+}
+double applyLoyaltyDiscount(double total, char loyaltyChoice){
+    if (loyaltyChoice=='Y'||loyaltyChoice=='y'){
+        return total-=total*0.1;
+    } else {
+        return total;
+    }
+}
+void printMobileBill(double dataCharge, double planCharge,
+                     double finalTotal, char loyaltyChoice){
+    cout << "\n=====MOBILE BILL====="<<endl;
+    cout << "Data Charge: " << dataCharge<<" Rs.";
+    cout <<"\nPlan Charge: " <<planCharge<< " Rs.";
+    cout <<"\nFinal Total: " <<finalTotal<<" Rs.";
+    cout <<"\nLoyalty status: "<< loyaltyChoice;
+                     }
+
+int main(){
+    double internetGb;
+    int plantype;
+    char loyaltychoice;
+
+    cout << "Enter the number of GB(s):\n";
+    cin >> internetGb;
+
+    cout << "Enter your plan type (1-3):\n";
+    cin >> plantype;
+
+    cout << "Do you like loyalty(Y/N)?\n";
+    cin >> loyaltychoice;
+
+    if(internetGb<=0){
+        cout << "\nRejected because data can't be zero or less than zero.";
+    } 
+        double dataCharge=calculateDataCharge(internetGb);
+    
+
+    if(plantype!='y'||plantype!='Y'){
+        cout << "\ninvalid plan type.";
+    }
+       double planCharge=calculatePlanCharge(plantype);
+    
+
+    double sumCharges = dataCharge+planCharge;
+
+    double finalTotal = applyLoyaltyDiscount( sumCharges ,  loyaltychoice);
+    
+    printMobileBill(dataCharge, planCharge,
+                      finalTotal,  loyaltychoice);
+
+    return 0;
+}
